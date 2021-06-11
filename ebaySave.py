@@ -39,34 +39,38 @@ for result in results:
 
 arrylinks.pop(0)
 imagearry=[]
-for i in range(3): #len(arrylinks)
-    time.sleep(0.5)
+for i in range(len(arrylinks)): #len(arrylinks)
+    time.sleep(1)
     if(i>0):
         driver.get(arrylinks[i])
         time.sleep(2)
         title = driver.find_element_by_name("title")
         title.get_attribute("value")
+        outsheet.write(i, 1, title.get_attribute("value") )
         price = driver.find_element_by_name("binPrice")
         price.get_attribute("value")
+        outsheet.write(i, 2, price.get_attribute("value"))
         partNum = driver.find_element_by_name("_st_Manufacturer Part Number")
         partNum.get_attribute("value")
+        outsheet.write(i, 3, partNum.get_attribute("value"))
         description = driver.find_element_by_name("description")
         description.get_attribute("value")
-   
+        outsheet.write(i, 4, description.get_attribute("value"))
         iframe= driver.find_element_by_name("uploader_iframe")
         driver.switch_to.frame(iframe)
         image = driver.find_element_by_xpath("/html/body/div[2]/span/div[1]/form/div[2]/div[1]/div[1]/div[4]/span/span[2]").click() ##issues getting image urls, cant find span that enlarges images so full image url can be accessed
         image = driver.find_element_by_xpath("/html/body/div[2]/span/div[1]/form/div[2]/div[1]/div[1]/div[4]/span/span[3]").click()
         driver.switch_to.default_content()
         source= driver.find_element_by_xpath("/html/body/div[16]/div/div/div/div/img").get_attribute("src")
-        for i in range(12):
+        for j in range(12):
             imagearry.append(driver.find_element_by_xpath("/html/body/div[16]/div/div/div/div/img").get_attribute("src"))
             driver.find_element_by_class_name("arrow-right").click()
-            if(i>0 and imagearry[i] == source):
-                imagearry.remove(imagearry[i])
+            if(j>0 and imagearry[j] == source):
+                imagearry.remove(imagearry[j])
                 break
             else:
-                print(imagearry[i])
+                outsheet.write(i, j+5, imagearry[j])
+                print(imagearry[j])
 
 
         #end= driver.find_element_by_xpath("/html/body/div[1]/div/div/div/div[5]/div/div[2]/div[2]/div/div[6]/div[4]/div/a").click()
@@ -74,7 +78,7 @@ for i in range(3): #len(arrylinks)
 
         #figure out how to add all info to excel sheet
         
-        
+        outWorkbook.close()
 #working on it
 driver.switch_to.default_content()
 print(len(image))
