@@ -1,9 +1,8 @@
-import time
-import numpy
+import time 
 
-from scipy import stats
+#from scipy import stats
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+#from selenium.webdriver.common.keys import Keys
 
 
 options = webdriver.ChromeOptions()
@@ -19,10 +18,10 @@ time.sleep(0.5)
 time.sleep(0.5)
 time.sleep(0.5)
 search_box = driver.find_element_by_tag_name("input")
-search_box.send_keys("username")
+search_box.send_keys("partsmart15")
 search_box.submit()
 search_box = driver.find_element_by_id("pass")
-search_box.send_keys("password")
+search_box.send_keys("accord03")
 search_box.submit()
 link="https://www.ebay.com/sh/lst/ended?status=UNSOLD_NOT_RELISTED&limit=200"
 driver.get(link)
@@ -31,7 +30,7 @@ arrylinks=[]
 results=driver.find_elements_by_partial_link_text("Relist")
 for result in results:
     arrylinks.append(result.get_attribute('href'))
-n=0
+
 arrylinks.pop(0)
 imagearry=[]
 for i in range(3): #len(arrylinks)
@@ -53,11 +52,24 @@ for i in range(3): #len(arrylinks)
         image = driver.find_element_by_xpath("/html/body/div[2]/span/div[1]/form/div[2]/div[1]/div[1]/div[4]/span/span[2]").click() ##issues getting image urls, cant find span that enlarges images so full image url can be accessed
         image = driver.find_element_by_xpath("/html/body/div[2]/span/div[1]/form/div[2]/div[1]/div[1]/div[4]/span/span[3]").click()
         driver.switch_to.default_content()
-        source=driver.find_element_by_xpath("/html/body/div[16]/div/div/div/div/img").get_attribute("src")
+        source= driver.find_element_by_xpath("/html/body/div[16]/div/div/div/div/img").get_attribute("src")
+        for i in range(12):
+            imagearry.append(driver.find_element_by_xpath("/html/body/div[16]/div/div/div/div/img").get_attribute("src"))
+            driver.find_element_by_class_name("arrow-right").click()
+            if(i>0 and imagearry[i] == source):
+                imagearry.remove(imagearry[i])
+                break
+            else:
+                print(imagearry[i])
+
+
+        #end= driver.find_element_by_xpath("/html/body/div[1]/div/div/div/div[5]/div/div[2]/div[2]/div/div[6]/div[4]/div/a").click()
+        #end1= driver.find_element_by_xpath("/html/body/div[8]/table/tbody/tr[2]/td[1]/div/div/div/div[2]/input[1]").click()
         
         #need for loop to get all images
         #need if to make sure that no immage url duplicates
-        driver.find_element_by_class_name("arrow-right").click()
+        
+        #driver.find_element_by_class_name("arrow-right").click()
 
         #figure out how to add all info to excel sheet
         
