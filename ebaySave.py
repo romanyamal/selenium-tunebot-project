@@ -1,8 +1,14 @@
 import time 
-
-#from scipy import stats
+import xlsxwriter
 from selenium import webdriver
-#from selenium.webdriver.common.keys import Keys
+
+outWorkbook=xlsxwriter.Workbook("listItems.xlsx")
+
+bold =outWorkbook.add_format({'bold':True})
+outsheet= outWorkbook.add_worksheet()
+heading=['Title','Price', 'Part Num','Description(HTML)','Pic1','Pic2','Pic3','Pic4','Pic5','Pic6','Pic7','Pic8','Pic9','Pic10','Pic11','Pic12']
+for i in range(len(heading)):
+    outsheet.write(0, i+1, heading[i], bold)
 
 
 options = webdriver.ChromeOptions()
@@ -65,11 +71,6 @@ for i in range(3): #len(arrylinks)
 
         #end= driver.find_element_by_xpath("/html/body/div[1]/div/div/div/div[5]/div/div[2]/div[2]/div/div[6]/div[4]/div/a").click()
         #end1= driver.find_element_by_xpath("/html/body/div[8]/table/tbody/tr[2]/td[1]/div/div/div/div[2]/input[1]").click()
-        
-        #need for loop to get all images
-        #need if to make sure that no immage url duplicates
-        
-        #driver.find_element_by_class_name("arrow-right").click()
 
         #figure out how to add all info to excel sheet
         
