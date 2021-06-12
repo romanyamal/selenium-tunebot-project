@@ -1,7 +1,15 @@
 import time 
+import json
 import xlsxwriter
 from selenium import webdriver
 
+def write_json(new_data, filename='data.json'):
+    with open(filename, 'r+') as file:
+        file_data=json.load(file)
+        file_data.update(new_data)
+        file.seek(0)
+        json.dump(file_data, file, indent = 4)
+        
 outWorkbook=xlsxwriter.Workbook("listItems.xlsx")
 
 bold =outWorkbook.add_format({'bold':True})
