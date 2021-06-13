@@ -1,0 +1,25 @@
+'''Example json file to start'''
+
+{
+    "ebay_list": [
+        {
+            "Saved order": null,
+            "Title": null,
+            "Price": null,
+            "Part num": null,
+            "Description": null,
+            "Pic1": null,
+            "Pic2": null,
+            "Pic3": null,
+            "Pic4": null,
+            "Pic5": null,
+            "Pic6": null,
+            "Pic7": null,
+            "Pic8": null,
+            "Pic9": null,
+            "Pic10": null,
+            "Pic11": null,
+            "Pic12": null
+        }
+      ]
+}
