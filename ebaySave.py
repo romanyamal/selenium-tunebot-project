@@ -4,11 +4,16 @@ from selenium import webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.common.exceptions import ElementNotInteractableException
 
+#Constants
+USERNAME = "username"
+PASSWORD = "pass123"
+DATA_FILE= 'data.json'
+
 #Program designed to retrieve all ended listings data from ebay, saves data in json file
 #json file: must consist of proper format like object y on line 124, all items must be inside array called "ebay_list":[]
 
 #function to write to json file
-def write_json(data, filename='data.json'):
+def write_json(data, filename=DATA_FILE):
     with open(filename, 'w') as file:
         json.dump(data, file, indent = 4)
 
@@ -118,7 +123,7 @@ def ebayPro(driver, arrylinks, offset):
         item_array[16] = i + offset
         print(item_array[16])
         #add info from item_array to json object and append to file
-        with open('data.json') as json_file:
+        with open(DATA_FILE) as json_file:
             data = json.load(json_file)
             temp = data["ebay_list"]
             y={
@@ -158,12 +163,12 @@ driver.get(link)
 time.sleep(60)
 #find username and password boxes and enter values
 search_box = driver.find_element_by_tag_name("input")
-search_box.send_keys("username")
+search_box.send_keys(USERNAME)
 search_box.submit()
 #sleep to give time for user to sove captcha
 time.sleep(60)
 search_box = driver.find_element_by_id("pass")
-search_box.send_keys("password123")
+search_box.send_keys(PASSWORD)
 search_box.submit()
 
 #combine all links from every page to all_links array
